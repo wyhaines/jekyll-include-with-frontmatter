@@ -10,3 +10,5 @@ Metrics/LineLength:
   Enabled: false
 Metrics/CyclomaticComplexity:
   Enabled: false
+Style/UnneededPercentQ:
+  Enabled: false

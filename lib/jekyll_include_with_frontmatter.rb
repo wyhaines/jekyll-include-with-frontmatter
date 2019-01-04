@@ -60,3 +60,29 @@ class JekyllIncludeWithFrontmatter < Jekyll::Tags::IncludeTag
     cached_partial[path]
   end
 end
+
+# Include relative to the source file. Blatantly stolen from Jekyll itself.
+class JekyllIncludeRelativeWithFrontmatter < JekyllIncludeWithFrontmatter
+  def tag_includes_dirs(context)
+    Array(page_path(context)).freeze
+  end
+
+  def page_path(context)
+    if context.registers[:page].nil?
+      context.registers[:site].source
+    else
+      site = context.registers[:site]
+      page_payload  = context.registers[:page]
+      resource_path = \
+        if page_payload['collection'].nil?
+          page_payload['path']
+        else
+          File.join(site.config['collections_dir'], page_payload['path'])
+        end
+      site.in_source_dir File.dirname(resource_path)
+    end
+  end
+end
+
+Liquid::Template.register_tag('includefm', JekyllIncludeWithFrontmatter)
+Liquid::Template.register_tag('includefm_relative', JekyllIncludeRelativeWithFrontmatter)
