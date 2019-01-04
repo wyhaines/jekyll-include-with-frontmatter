@@ -1,0 +1,12 @@
+AllCops:
+  TargetRubyVersion: 2.3
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enbled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
