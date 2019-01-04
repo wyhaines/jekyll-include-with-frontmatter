@@ -1,8 +1,12 @@
-# Jekyll::Include::With::Frontmatter
+# JekyllIncludeWithFrontmatterTag
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jekyll/include/with/frontmatter`. To experiment with that code, run `bin/console` for an interactive prompt.
+Jekyll's `include` and `include_relative` tags are straight includes -- they don't deal with files that have frontmatter.
 
-TODO: Delete this and the text above, and describe your gem
+When working with a Jekyll site that uses Netlify CMS, though, one may want to be able to edit the includes via Netlify CMS. Netlify writes Markdown with frontmatter, though. The solution is to create a couple new tags, `includefm` and `includefm_relative`, which inherit from the Jekyll include tags, and add handling of frontmatter.
+
+Frontmatter gets treated as params passed into the include. If there is an include param with the same key as a frontmatter param, the include param takes precedence. Thus, frontmatter params can be thought of as defaults param values for the include.
+
+In all other ways, `includefm` and `includefm_relative` should work the same as `include` and `include_relative`.
 
 ## Installation
 
@@ -12,27 +16,46 @@ Add this line to your application's Gemfile:
 gem 'jekyll-include-with-frontmatter'
 ```
 
-And then execute:
+Also add a corresponding line to your Jekyll `config.yml`:
 
-    $ bundle
+```yaml
+plugins:
+  - jekyll-include-with-frontmatter
 
-Or install it yourself as:
-
-    $ gem install jekyll-include-with-frontmatter
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Files which are to be included can include frontmatter:
 
-## Development
+```yaml
+---
+title: Documents
+---
+<div id="documents-column">
+  <div class="bg-blue">{{ include.title }}</div>
+  <div class="bg-grey"><a href="/media/pdfs/doc1.pdf" target="_blank">Document 1</a></div>
+  <div class="bg-grey"><a href="/media/pdfs/doc2.pdf" target="_blank">Document 2</a></div>
+  <div class="bg-grey"><a href="/media/pdfs/doc3.pdf" target="_blank">Document 3</a></div>
+</div>
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+In your post, page, or layout, you include with frontmatter like this:
+
+```liquid
+{% includefm documents.html %}
+```
+
+These tags should work just like the standard Jekyll include tags on files that do not include frontmatter, as well.
+
+## TODO
+
+There are, effectively, no tests. Tests are needed.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jekyll-include-with-frontmatter.
+Bug reports and pull requests are welcome on GitHub at https://github.com/wyhaines/jekyll-include-with-frontmatter.
 
 ## License
 
