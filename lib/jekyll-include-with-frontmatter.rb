@@ -45,8 +45,8 @@ class JekyllIncludeWithFrontmatter < Jekyll::Tags::IncludeTag
       begin
         file_data = read_file(path, context)
         if (matchdata = file_data.match(/(---\n.*---\n)(.*)/m))
-          params = YAML.safe_load(matchdata[0])
-          cached_partial[path] = [unparsed_file.parse(matchdata[1]), params]
+          params = YAML.safe_load(matchdata[1])
+          cached_partial[path] = [unparsed_file.parse(matchdata[2]), params]
         else
           cached_partial[path] = [unparsed_file.parse(file_data), {}]
         end
