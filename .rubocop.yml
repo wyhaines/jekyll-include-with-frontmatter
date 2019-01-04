@@ -12,3 +12,5 @@ Metrics/CyclomaticComplexity:
   Enabled: false
 Style/UnneededPercentQ:
   Enabled: false
+Naming/FileName:
+  Enabled: false
