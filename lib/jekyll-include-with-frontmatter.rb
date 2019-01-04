@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'jekyll_include_with_frontmatter/version'
+require 'jekyll-include-with-frontmatter/version'
 require 'jekyll'
 require 'jekyll/tags/include'
 require 'yaml'
