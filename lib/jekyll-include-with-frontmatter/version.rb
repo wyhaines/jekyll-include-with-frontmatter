@@ -3,5 +3,5 @@
 require 'jekyll'
 require 'jekyll/tags/include'
 class JekyllIncludeWithFrontmatter < Jekyll::Tags::IncludeTag
-  VERSION = '0.1.0'
+  VERSION = '0.1.1'
 end

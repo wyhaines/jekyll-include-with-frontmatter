@@ -23,6 +23,7 @@ class JekyllIncludeWithFrontmatter < Jekyll::Tags::IncludeTag
     context.stack do
       parsed_params = @params ? parse_params(context) : nil
 
+      include_params ||= {}
       context['include'] = parsed_params ? include_params.merge(parsed_params) : include_params
       begin
         partial.render!(context)
